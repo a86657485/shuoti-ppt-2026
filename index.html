@@ -482,41 +482,87 @@
     /* ==================================================== */
     /* SLIDE 3: 试题展示 */
     /* ==================================================== */
-    #slide3 .main { grid-template-columns: 0.8fr 1.2fr; gap: 36px; }
+    #slide3 .main { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 24px; padding-top: 4px; }
     .slide.active#slide3 .panel { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
-    
-    /* Left column: Tree logic */
-    .q-logic { display: flex; flex-direction: column; gap: 24px; padding: 10px 0; }
-    .q-btn { 
-      background: rgba(255,255,255,0.05); border: 1px solid var(--w15); border-radius: 16px; padding: 20px; cursor: pointer; transition: all 0.3s var(--expo); text-align: left;
+
+    #slide3 .panel { padding: 18px; border-radius: 20px; }
+    #slide3 .sh { margin-bottom: 12px; justify-content: space-between; gap: 12px; }
+    #slide3 .sh h2 { font-size: 1.42rem; letter-spacing: .08em; white-space: nowrap; }
+    .q-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 12px; flex: 0 0 auto; }
+    .q-tab {
+      min-width: 0; border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 10px 12px;
+      background: rgba(255,255,255,.045); color: rgba(255,255,255,.72); font: inherit; text-align: left;
+      cursor: pointer; transition: background .2s ease, border-color .2s ease, transform .2s ease, color .2s ease;
     }
-    .q-btn.active { background: rgba(59,108,181,0.3); border-color: var(--b400); box-shadow: 0 8px 24px rgba(0,0,0,0.3); transform: translateX(10px); }
-    .q-btn h3 { font-size: 1.5rem; color: var(--w); margin: 0 0 8px 0; }
-    .q-btn p { font-size: 1.1rem; color: var(--w70); margin: 0; }
-    
-    /* Logic tree inner styling */
-    .tree-box { margin-top: 20px; display: none; }
-    .q-btn.active .tree-box { display: block; animation: fi 0.5s ease forwards; }
-    .tree-step { display: flex; gap: 16px; margin-bottom: 16px; position: relative; }
-    .tree-step::before { content: ''; position: absolute; left: 15px; top: 30px; bottom: -20px; width: 2px; background: var(--w15); }
-    .tree-step:last-child::before { display: none; }
-    .tree-num { width: 32px; height: 32px; border-radius: 50%; background: var(--teal); color: var(--w); display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; position: relative; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
-    .tree-text { padding-top: 4px; }
-    .tree-text strong { display: block; font-size: 1.2rem; color: var(--w90); margin-bottom: 4px; }
-    .tree-text span { font-size: 0.95rem; color: var(--w50); }
+    .q-tab:hover { transform: translateY(-1px); border-color: rgba(240,200,110,.45); color: var(--w); }
+    .q-tab.active {
+      background: linear-gradient(135deg, rgba(92,197,192,.18), rgba(59,108,181,.16));
+      border-color: rgba(92,197,192,.5); color: var(--w); box-shadow: inset 0 0 20px rgba(92,197,192,.08);
+    }
+    .q-tab b { display: block; font-size: .98rem; line-height: 1.1; white-space: nowrap; }
+    .q-tab span { display: block; margin-top: 4px; font-size: .66rem; color: rgba(255,255,255,.58); white-space: nowrap; }
 
-    /* Right column: Image Gallery */
-    .gallery { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 20px; height: 100%; }
-    .gallery-item { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); cursor: zoom-in; box-shadow: 0 8px 24px rgba(0,0,0,0.3); transition: transform 0.3s ease; }
-    .gallery-item.large { grid-column: span 2; max-height: 250px; }
-    .gallery-item:hover { transform: scale(1.02); border-color: rgba(255,255,255,0.3); }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-    .gallery-item::after { content: '点击放大'; position: absolute; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; color: var(--w); font-size: 1.2rem; font-weight: 600; opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(2px); }
-    .gallery-item:hover::after { opacity: 1; }
+    .question-source-panel { min-height: 0; }
+    .source-view { position: relative; z-index: 1; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; padding-bottom: 38px; }
+    .source-set { display: none; min-height: 0; flex: 1; grid-template-rows: minmax(0, 1fr) auto; gap: 10px; }
+    .source-set.active { display: grid; }
+    .source-frame {
+      position: relative; min-height: 0; border-radius: 14px; overflow: hidden; background: rgba(3,10,24,.52);
+      border: 1px solid rgba(255,255,255,.12); box-shadow: inset 0 0 22px rgba(255,255,255,.035), 0 16px 32px rgba(0,0,0,.28);
+      cursor: zoom-in;
+    }
+    .source-frame img { width: 100%; height: 100%; object-fit: contain; object-position: top center; display: block; }
+    .source-frame::after {
+      content: '点击放大原题'; position: absolute; right: 12px; bottom: 12px; border-radius: 999px; padding: 5px 10px;
+      background: rgba(0,0,0,.46); border: 1px solid rgba(255,255,255,.16); color: rgba(255,255,255,.78);
+      font-size: .64rem; font-weight: 800; letter-spacing: .04em; backdrop-filter: blur(8px);
+    }
+    .source-thumbs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; min-height: 70px; }
+    .source-set[data-question="q16"] .source-thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .source-thumb {
+      position: relative; min-width: 0; border: 1px solid rgba(255,255,255,.12); border-radius: 11px; overflow: hidden;
+      background: rgba(255,255,255,.04); cursor: pointer; transition: transform .18s ease, border-color .18s ease, opacity .18s ease;
+      padding: 0; font: inherit;
+    }
+    .source-thumb:hover { transform: translateY(-1px); border-color: rgba(240,200,110,.5); }
+    .source-thumb img { width: 100%; height: 70px; object-fit: cover; object-position: top center; display: block; opacity: .82; }
+    .source-thumb.active { border-color: var(--gold-l); box-shadow: 0 0 16px rgba(240,200,110,.12); }
+    .source-thumb.active img { opacity: 1; }
 
-    /* Dynamically hide/show gallery based on active Q */
-    .g-wrap { display: none; height: 100%; }
-    .g-wrap.active { display: contents; }
+    .ipo-analysis-panel { min-height: 0; }
+    .analysis-shell { position: relative; z-index: 1; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 12px; }
+    .analysis-set { display: none; min-height: 0; flex: 1; flex-direction: column; gap: 10px; }
+    .analysis-set.active { display: flex; }
+    .analysis-lead {
+      border-radius: 14px; padding: 13px 14px; border: 1px solid rgba(255,255,255,.1);
+      background: linear-gradient(135deg, rgba(92,197,192,.11), rgba(240,200,110,.08));
+      display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; flex: 0 0 auto;
+    }
+    .analysis-lead h3 { margin: 0; color: var(--w); font-size: 1.18rem; line-height: 1.18; font-weight: 900; letter-spacing: .03em; }
+    .analysis-lead p { margin: 5px 0 0; color: rgba(255,255,255,.62); font-size: .76rem; line-height: 1.35; font-weight: 700; }
+    .analysis-score { border-radius: 999px; padding: 8px 11px; color: var(--gold-l); background: rgba(240,200,110,.1); border: 1px solid rgba(240,200,110,.26); font-size: .8rem; font-weight: 900; white-space: nowrap; }
+    .ipo-accordion { min-height: 0; flex: 1; display: grid; grid-template-rows: auto auto auto; gap: 8px; }
+    .ipo-fold {
+      min-height: 0; border-radius: 14px; border: 1px solid rgba(255,255,255,.11); background: rgba(255,255,255,.045);
+      overflow: hidden; transition: background .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+    .ipo-fold.open { background: rgba(8,26,54,.62); border-color: color-mix(in srgb, var(--accent) 52%, rgba(255,255,255,.12)); box-shadow: inset 0 0 22px color-mix(in srgb, var(--accent) 12%, transparent); overflow-y: auto; }
+    .ipo-fold-head {
+      width: 100%; min-height: 48px; border: 0; background: transparent; color: var(--w); display: grid; grid-template-columns: 42px minmax(0,1fr) 22px;
+      align-items: center; gap: 10px; padding: 9px 12px; font: inherit; text-align: left; cursor: pointer;
+    }
+    .ipo-letter { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: #061329; background: var(--accent); font-size: 1.22rem; font-weight: 900; box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 55%, transparent); }
+    .ipo-fold-head b { display: block; font-size: .94rem; line-height: 1.1; letter-spacing: .03em; }
+    .ipo-fold-head span { display: block; margin-top: 3px; color: rgba(255,255,255,.55); font-size: .64rem; line-height: 1.2; font-weight: 800; }
+    .fold-arrow { color: rgba(255,255,255,.5); transform: rotate(0deg); transition: transform .2s ease; }
+    .ipo-fold.open .fold-arrow { transform: rotate(90deg); color: var(--accent); }
+    .ipo-fold-body { display: none; padding: 0 13px 13px 64px; }
+    .ipo-fold.open .ipo-fold-body { display: block; animation: fi .22s ease forwards; }
+    .ipo-fold-body ul { display: flex; flex-direction: column; gap: 7px; margin: 0; padding: 0; }
+    .ipo-fold-body li {
+      list-style: none; position: relative; color: rgba(255,255,255,.86); font-size: .82rem; line-height: 1.36; font-weight: 750;
+    }
+    .ipo-fold-body li::before { content: ''; position: absolute; left: -14px; top: .62em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
 
     /* ==================================================== */
     /* SLIDE 4: 整体反思 */
@@ -1097,63 +1143,90 @@
         </header>
 
         <main class="main">
-          <!-- Left: Logic Selection -->
-          <div class="panel">
+          <div class="panel question-source-panel">
             <div class="sh">
               <div class="dots"><span></span><span></span></div>
-              <h2>两道综合大题解构</h2>
+              <h2>第16题原题内容</h2>
               <div class="dots"><span></span><span></span></div>
             </div>
-            <div class="q-logic">
-              <!-- Q15 selector -->
-              <div class="q-btn active" onclick="switchQ('q15')">
-                <h3>第15题：深中通道智慧交通</h3>
-                <p>30分 · 8子问 · 一条工程链路</p>
-                <div class="tree-box">
-                  <div class="tree-step"><div class="tree-num">1</div><div class="tree-text"><strong>网络配置基础</strong><span>ipconfig诊断</span></div></div>
-                  <div class="tree-step"><div class="tree-num">2</div><div class="tree-text"><strong>路由表推演</strong><span>台风绕行动态更新</span></div></div>
-                  <div class="tree-step"><div class="tree-num">3</div><div class="tree-text"><strong>协议选型决策</strong><span>UDP vs TCP 性能对比</span></div></div>
-                  <div class="tree-step"><div class="tree-num">4</div><div class="tree-text"><strong>Web前端排错</strong><span>HTML/CSS 工程实践</span></div></div>
+            <div class="source-view">
+              <div class="source-set active" data-question="q16">
+                <div class="source-frame" onclick="openImg(document.getElementById('q16SourceMain').getAttribute('src'))">
+                  <img id="q16SourceMain" src="images/16-1.png" alt="第16题原题内容">
                 </div>
-              </div>
-              <!-- Q16 selector -->
-              <div class="q-btn" onclick="switchQ('q16')">
-                <h3>第16题：大沙河生态监测</h3>
-                <p>30分 · 5子问 · 物联网完整闭环</p>
-                <div class="tree-box">
-                  <div class="tree-step"><div class="tree-num">1</div><div class="tree-text"><strong>架构理解</strong><span>系统流程模块匹配</span></div></div>
-                  <div class="tree-step"><div class="tree-num">2</div><div class="tree-text"><strong>数据推演</strong><span>传感器数据逻辑分析</span></div></div>
-                  <div class="tree-step"><div class="tree-num">3</div><div class="tree-text"><strong>编程实操</strong><span>MQTT 协议代码补全</span></div></div>
-                  <div class="tree-step"><div class="tree-num">4</div><div class="tree-text"><strong>社会责任</strong><span>网络安全与自主可控论述</span></div></div>
+                <div class="source-thumbs" aria-label="第16题原题分页">
+                  <button type="button" class="source-thumb active" onclick="showSourceImage(this, 'images/16-1.png')">
+                    <img src="images/16-1.png" alt="第16题原题第一页">
+                  </button>
+                  <button type="button" class="source-thumb" onclick="showSourceImage(this, 'images/16-3-1.png')">
+                    <img src="images/16-3-1.png" alt="第16题原题代码页">
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Right: Image Gallery -->
-          <div class="panel" style="padding: 24px;">
-            <!-- Q15 Gallery -->
-            <div class="g-wrap active" id="gal-q15">
-              <div class="gallery">
-                <div class="gallery-item large" onclick="openImg('images/15-2.png')">
-                  <img src="images/15-2.png" alt="15-2">
-                </div>
-                <div class="gallery-item" onclick="openImg('images/15-1.png')">
-                  <img src="images/15-1.png" alt="15-1">
-                </div>
-                <div class="gallery-item" onclick="openImg('images/15-8.png')">
-                  <img src="images/15-8.png" alt="15-8">
-                </div>
-              </div>
+          <div class="panel ipo-analysis-panel">
+            <div class="sh">
+              <div class="dots"><span></span><span></span></div>
+              <h2>I-P-O 试题说明</h2>
+              <div class="dots"><span></span><span></span></div>
             </div>
-            <!-- Q16 Gallery -->
-            <div class="g-wrap" id="gal-q16">
-              <div class="gallery">
-                <div class="gallery-item large" onclick="openImg('images/16-1.png')">
-                  <img src="images/16-1.png" alt="16-1">
-                </div>
-                <div class="gallery-item large" onclick="openImg('images/16-3-1.png')">
-                  <img src="images/16-3-1.png" alt="16-3-1">
+            <div class="analysis-shell">
+              <div class="analysis-set active" data-question="q16">
+                <section class="analysis-lead">
+                  <div>
+                    <h3>第16题：大沙河生态监测</h3>
+                    <p>30分 · 5个子问 · 物联网流程、数据推演、MQTT通信与信息社会责任综合考查</p>
+                  </div>
+                  <strong class="analysis-score">综合题 30分</strong>
+                </section>
+
+                <div class="ipo-accordion" aria-label="第16题IPO流程说明">
+                  <article class="ipo-fold open" data-ipo="i" style="--accent: var(--teal-l);">
+                    <button type="button" class="ipo-fold-head" onclick="toggleIpoFold(this)">
+                      <span class="ipo-letter">I</span>
+                      <span><b>Input 输入</b><span>真实情境封装 · 情境数据化输入</span></span>
+                      <span class="fold-arrow">›</span>
+                    </button>
+                    <div class="ipo-fold-body">
+                      <ul>
+                        <li>以“大沙河生态监测”为本土真实情境，输入水质、红外、通信与安全等情境数据。</li>
+                        <li>对应课标模块：物联网实践与探索，嵌入人工智能与智慧社会中的自主可控议题。</li>
+                        <li>把学业质量要求转化为可观察任务：流程识别、阈值判断、协议代码、攻击防护、价值论证。</li>
+                      </ul>
+                    </div>
+                  </article>
+
+                  <article class="ipo-fold" data-ipo="p" style="--accent: var(--gold-l);">
+                    <button type="button" class="ipo-fold-head" onclick="toggleIpoFold(this)">
+                      <span class="ipo-letter">P</span>
+                      <span><b>Process 处理</b><span>子问题链推进 · 关联结构处理</span></span>
+                      <span class="fold-arrow">›</span>
+                    </button>
+                    <div class="ipo-fold-body">
+                      <ul>
+                        <li>子问题链：系统流程模块匹配 → 传感器数据推演 → MQTT代码补全 → DDoS识别 → 自主可控论述。</li>
+                        <li>从单点知识识别推进到多源数据关联，引导学生解释“采集、传输、分析、反馈”的系统关系。</li>
+                        <li>通过代码补全和安全情境判断，呈现计算思维、系统思维与责任意识的高阶表现。</li>
+                      </ul>
+                    </div>
+                  </article>
+
+                  <article class="ipo-fold" data-ipo="o" style="--accent: var(--b300);">
+                    <button type="button" class="ipo-fold-head" onclick="toggleIpoFold(this)">
+                      <span class="ipo-letter">O</span>
+                      <span><b>Output 输出</b><span>素养证据 · 高阶思维评估</span></span>
+                      <span class="fold-arrow">›</span>
+                    </button>
+                    <div class="ipo-fold-body">
+                      <ul>
+                        <li>输出可评价证据：流程图答案、阈值推演表、MQTT方法填空、安全策略选择与开放性论述。</li>
+                        <li>覆盖计算思维、数字化学习与创新、信息社会责任，突出真实问题解决而非记忆再现。</li>
+                        <li>评分关注从“会判断”到“能解释、能迁移、能论证”的思维层级变化。</li>
+                      </ul>
+                    </div>
+                  </article>
                 </div>
               </div>
             </div>
@@ -1485,11 +1558,18 @@
     });
 
     // --- Slide 3 Logic ---
-    function switchQ(id) {
-      document.querySelectorAll('.q-btn').forEach(btn => btn.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-      document.querySelectorAll('.g-wrap').forEach(w => w.classList.remove('active'));
-      document.getElementById('gal-' + id).classList.add('active');
+    function showSourceImage(btn, src) {
+      const main = document.getElementById('q16SourceMain');
+      if (main) main.src = src;
+      btn.closest('.source-thumbs')?.querySelectorAll('.source-thumb').forEach(item => item.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function toggleIpoFold(btn) {
+      const fold = btn.closest('.ipo-fold');
+      const wrap = btn.closest('.ipo-accordion');
+      if (!fold || !wrap) return;
+      wrap.querySelectorAll('.ipo-fold').forEach(item => item.classList.toggle('open', item === fold));
     }
 
     // --- Modals Logic ---
