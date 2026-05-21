@@ -61,14 +61,22 @@
     }
     .slider-track {
       display: flex;
-      width: 600vw; height: 100%;
+      width: 700vw; height: 100%;
       transition: transform 0.8s var(--expo);
       will-change: transform;
     }
     .slide {
-      width: 100vw; height: 100%;
+      width: 100vw; flex: 0 0 100vw; height: 100%;
       display: flex; flex-direction: column; justify-content: space-between;
       position: relative;
+    }
+    .top-bar { display: none; }
+    .image-slide {
+      display: block; overflow: hidden; background: #020b26;
+    }
+    .image-slide img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center; display: block;
     }
 
     /* COMMON HEADER & BANNER */
@@ -457,15 +465,16 @@
     }
     .bottom-bar b { color: #ffd15f; font-weight: 900; }
 
-    /* Slide 2 now uses the provided image as the exact visual layer. */
+    /* Slide 2 uses an expanded 16:10 image as the exact visual layer. */
     #slide2 .ipo-system {
-      background: #061433 url('images/ipo-background.png') center / 100% 100% no-repeat;
+      width: 100vw; height: 100vh; opacity: 0; transform: none;
+      background: #020b26 url('images/ipo-thinking-16x10.png') center / cover no-repeat;
     }
     #slide2 .ipo-system::before,
     #slide2 .ipo-system::after { display: none; }
     #slide2 .ipo-system > :not(#ipoOutputNode) { display: none !important; }
     #slide2 #ipoOutputNode {
-      position: absolute; right: 4.7%; top: 33.8%; width: 25.6%; height: 43.8%;
+      position: absolute; left: 72.5%; top: 36.1%; width: 23.8%; height: 37.5%;
       display: block; padding: 0; border: 0; border-radius: 50%; background: transparent;
       box-shadow: none; color: transparent; cursor: pointer; z-index: 8; overflow: visible;
       transition: background .18s ease, box-shadow .18s ease;
@@ -599,6 +608,9 @@
       display: flex; flex-direction: column; justify-content: center; width: 100%; min-height: 100%;
       padding: 19px 18px 18px; animation: fi .22s ease forwards;
     }
+    .ipo-fold.open .ipo-fold-body.visual-fold-body {
+      padding: 9px; justify-content: stretch; overflow: hidden;
+    }
     .ipo-fold-body ul { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0 0 0 19px; }
     .ipo-fold-body li {
       list-style: none; position: relative; color: rgba(255,255,255,.92); font-size: 1.08rem; line-height: 1.4; font-weight: 840;
@@ -647,6 +659,21 @@
     }
     .dimension-card b { display: block; color: var(--accent); font-size: .96rem; line-height: 1.1; font-weight: 900; }
     .dimension-card span { display: block; margin-top: 8px; color: rgba(255,255,255,.82); font-size: .84rem; line-height: 1.34; font-weight: 830; }
+    .ipo-visual-card {
+      position: relative; flex: 1; min-height: 0; width: 100%; border-radius: 14px; overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--accent) 40%, rgba(255,255,255,.12));
+      background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--accent) 16%, transparent), rgba(5,17,39,.88) 72%);
+      box-shadow: inset 0 0 28px color-mix(in srgb, var(--accent) 12%, transparent), 0 14px 30px rgba(0,0,0,.24);
+      cursor: zoom-in; padding: 0; font: inherit; appearance: none;
+    }
+    .ipo-visual-card img {
+      width: 100%; height: 100%; object-fit: contain; object-position: center; display: block;
+    }
+    .ipo-visual-card::after {
+      content: '点击放大'; position: absolute; right: 12px; bottom: 12px; border-radius: 999px; padding: 5px 10px;
+      background: rgba(5,17,39,.62); border: 1px solid rgba(255,255,255,.16); color: rgba(255,255,255,.86);
+      font-size: .66rem; line-height: 1; font-weight: 900; letter-spacing: .04em; backdrop-filter: blur(8px);
+    }
 
     .mo-blueprint .mc {
       max-width: 1260px; width: 97vw; max-height: 92vh;
@@ -660,6 +687,14 @@
     .blueprint-hdr h3 { margin: 0; color: var(--w); font-size: 1.45rem; font-weight: 900; letter-spacing: .08em; }
     .blueprint-hdr span { display: block; margin-top: 4px; color: rgba(255,255,255,.58); font-size: .8rem; font-weight: 800; letter-spacing: .04em; }
     .blueprint-table-wrap { padding: 16px; overflow: auto; min-height: 0; }
+    .blueprint-image-wrap {
+      padding: 14px; overflow: auto; min-height: 0; display: flex; justify-content: center; align-items: flex-start;
+      background: rgba(5,17,39,.34); cursor: zoom-in;
+    }
+    .blueprint-image-wrap img {
+      width: 100%; max-width: 1210px; height: auto; display: block; border-radius: 10px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.38);
+    }
     .blueprint-table { width: 100%; border-collapse: collapse; min-width: 1160px; color: #071329; background: #eef8f0; border-radius: 12px; overflow: hidden; }
     .blueprint-table th {
       background: #1f5f9f; color: #fff; padding: 11px 9px; border: 1px solid #0d2b4a;
@@ -675,14 +710,19 @@
     /* ==================================================== */
     /* SLIDE 4-5: 试题展示延展 */
     /* ==================================================== */
+    .showcase-slide .hdr { padding: 8px 64px 6px; }
+    .showcase-slide .hdr h1 { font-size: 3.25rem; }
+    .showcase-slide .badge { padding: 8px 22px; font-size: 1.05rem; }
     .showcase-slide .main {
-      grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr); gap: 22px; padding-top: 4px;
+      grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); gap: 20px; padding-top: 2px; padding-bottom: 8px;
       min-height: 0; overflow: hidden;
     }
     .slide.active.showcase-slide .panel { opacity: 1; transform: translateY(0); transition-delay: .1s; }
     .showcase-slide .panel { padding: 18px; border-radius: 20px; }
+    .showcase-slide .case-analysis-panel { padding: 10px 14px 12px; }
     .showcase-slide .sh { margin-bottom: 12px; justify-content: space-between; gap: 12px; }
-    .showcase-slide .sh h2 { font-size: 1.42rem; letter-spacing: .08em; white-space: nowrap; }
+    .showcase-slide .case-analysis-panel .sh { margin-bottom: 7px; }
+    .showcase-slide .sh h2 { font-size: 1.56rem; letter-spacing: .08em; white-space: nowrap; }
     .case-source-panel, .case-analysis-panel { min-height: 0; }
     .case-source-frame {
       flex: 1; min-height: 0; border-radius: 15px; overflow: hidden; border: 1px solid rgba(147,181,225,.22);
@@ -695,34 +735,34 @@
       background: rgba(8,19,41,.62); border: 1px solid rgba(255,255,255,.18); color: rgba(255,255,255,.86);
       font-size: .64rem; font-weight: 900; letter-spacing: .04em; backdrop-filter: blur(8px);
     }
-    .case-analysis-body { flex: 1; min-height: 0; display: grid; grid-template-rows: auto auto auto auto; gap: 8px; }
+    .case-analysis-body { flex: 1; min-height: 0; display: grid; grid-template-rows: auto auto minmax(0, 1fr); gap: 6px; }
     .case-section {
-      min-height: 0; border-radius: 14px; padding: 10px 12px; border: 1px solid rgba(147,181,225,.18);
+      min-height: 0; border-radius: 14px; padding: 8px 10px; border: 1px solid rgba(147,181,225,.18);
       background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.028));
       box-shadow: inset 0 0 20px rgba(255,255,255,.025);
     }
-    .case-section-title { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; color: var(--w); font-weight: 900; letter-spacing: .04em; font-size: .96rem; }
+    .case-section-title { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; color: var(--w); font-weight: 900; letter-spacing: .04em; font-size: 1.28rem; }
     .case-index {
       width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
       background: var(--b300); color: #061329; font-size: .9rem; box-shadow: 0 0 14px rgba(90,141,212,.35);
     }
     .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 8px; }
     .detail-item {
-      border-radius: 9px; padding: 6px 8px; background: rgba(5,17,39,.44); border: 1px solid rgba(255,255,255,.08);
-      color: rgba(255,255,255,.82); font-size: .68rem; line-height: 1.25; font-weight: 780;
+      border-radius: 9px; padding: 7px 9px; background: rgba(5,17,39,.44); border: 1px solid rgba(255,255,255,.08);
+      color: rgba(255,255,255,.86); font-size: .9rem; line-height: 1.26; font-weight: 800;
     }
     .detail-item b { color: var(--gold-l); font-weight: 900; margin-right: 4px; }
     .detail-item.wide { grid-column: span 2; }
     .solo-rows { display: grid; gap: 5px; }
-    .solo-row { display: grid; grid-template-columns: 82px minmax(0,1fr); align-items: center; gap: 7px; }
+    .solo-row { display: grid; grid-template-columns: 96px minmax(0,1fr); align-items: center; gap: 9px; }
     .solo-row b {
       border-radius: 8px; padding: 5px 7px; text-align: center; color: #061329; background: var(--solo);
-      font-size: .68rem; font-weight: 900; white-space: nowrap;
+      font-size: .88rem; font-weight: 900; white-space: nowrap;
     }
-    .solo-row span { color: rgba(255,255,255,.83); font-size: .66rem; line-height: 1.25; font-weight: 760; }
+    .solo-row span { color: rgba(255,255,255,.86); font-size: .88rem; line-height: 1.28; font-weight: 790; }
     .solo-target {
-      margin-top: 6px; border-radius: 9px; padding: 6px 8px; background: rgba(92,197,192,.12);
-      color: var(--teal-l); font-size: .72rem; font-weight: 900; text-align: center;
+      margin-top: 8px; border-radius: 9px; padding: 7px 8px; background: rgba(92,197,192,.12);
+      color: var(--teal-l); font-size: .84rem; font-weight: 900; text-align: center;
     }
     .solution-grid { display: grid; grid-template-columns: minmax(0,1fr) 132px; gap: 10px; align-items: stretch; }
     .solution-grid ul { margin: 0; padding-left: 17px; color: rgba(255,255,255,.84); font-size: .72rem; line-height: 1.32; font-weight: 780; }
@@ -731,12 +771,13 @@
       color: var(--w); display: grid; place-items: center; text-align: center; font-size: .92rem; font-weight: 900;
     }
     .answer-card b { color: var(--gold-l); font-size: 1.25rem; margin-left: 4px; }
-    .value-cards { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
+    .value-cards { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
     .value-card {
-      min-height: 52px; border-radius: 12px; padding: 8px; border: 1px solid rgba(92,197,192,.22);
-      background: rgba(92,197,192,.07); color: rgba(255,255,255,.82); font-size: .66rem; line-height: 1.26; font-weight: 780;
+      min-height: 92px; border-radius: 12px; padding: 11px 12px; border: 1px solid rgba(92,197,192,.24);
+      background: rgba(92,197,192,.08); color: rgba(255,255,255,.88); font-size: .98rem; line-height: 1.3; font-weight: 820;
+      display: flex; flex-direction: column; justify-content: center;
     }
-    .value-card b { display: block; color: var(--teal-l); font-size: .76rem; margin-bottom: 4px; }
+    .value-card b { display: block; color: var(--teal-l); font-size: 1.12rem; margin-bottom: 5px; }
 
     /* ==================================================== */
     /* SLIDE 6: 整体反思 */
@@ -1093,6 +1134,7 @@
       <div class="nav-dot" data-slide="3"></div>
       <div class="nav-dot" data-slide="4"></div>
       <div class="nav-dot" data-slide="5"></div>
+      <div class="nav-dot" data-slide="6"></div>
     </div>
     <button class="nav-btn" id="btnNext">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -1104,9 +1146,16 @@
     <div class="slider-track" id="sliderTrack">
 
       <!-- ============================================== -->
-      <!-- SLIDE 1: 命题依据 -->
+      <!-- SLIDE 1: 封面 -->
       <!-- ============================================== -->
-      <section class="slide active" id="slide1">
+      <section class="slide image-slide active" id="slideCover" aria-label="封面">
+        <img src="images/cover-16x10.png" alt="以城为境 素养为尺">
+      </section>
+
+      <!-- ============================================== -->
+      <!-- SLIDE 2: 命题依据 -->
+      <!-- ============================================== -->
+      <section class="slide" id="slide1">
         <header class="hdr">
           <h1>命题依据</h1>
         </header>
@@ -1294,7 +1343,7 @@
               <div class="circle-code">O</div>
               <div class="circle-title">Output 输出</div>
               <div class="o-bars">
-                <div class="o-bar"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 10h16M10 4v16"/></svg><span>多维双向细目表 + 全维数据画像</span><svg class="pie" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M14 3v7h7A9 9 0 0 0 14 3z"/></svg></div>
+                <div class="o-bar"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 10h16M10 4v16"/></svg><span>多维细目表 + 全卷数据画像</span><svg class="pie" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M14 3v7h7A9 9 0 0 0 14 3z"/></svg></div>
                 <div class="o-bar"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-5"/></svg><span>核心素养、高阶思维与立德树人</span></div>
               </div>
             </div>
@@ -1388,22 +1437,10 @@
                       <span><b>Input 输入</b><span>真实情境封装 · 情境数据化输入</span></span>
                       <span class="fold-arrow">›</span>
                     </button>
-                    <div class="ipo-fold-body">
-                      <div class="ipo-tags" style="--accent: var(--teal-l);">
-                        <span class="ipo-tag">大沙河生态保护</span>
-                        <span class="ipo-tag">水质监测预警</span>
-                        <span class="ipo-tag">人员非法靠近预警</span>
-                      </div>
-                      <div class="knowledge-input-grid">
-                        <div class="knowledge-input"><b>16(1)</b>物联网系统流程：采集→传输→分析→反馈；模块功能匹配</div>
-                        <div class="knowledge-input"><b>16(2)</b>基于阈值条件的数据推演：PH 范围、红外距离、逻辑判断</div>
-                        <div class="knowledge-input"><b>16(3)</b>MQTT 协议 publish / subscribe 方法；Python 物联网编程</div>
-                        <div class="knowledge-input"><b>16(4)(5)</b>网络安全威胁防范；核心技术自主可控与国家安全</div>
-                      </div>
-                      <ul>
-                        <li>情境数据输入：水质 PH、浊度、红外距离、MQTT 通信与安全攻击。</li>
-                        <li>评价任务输入：流程识别、阈值判断、协议代码、攻击防护、价值论证。</li>
-                      </ul>
+                    <div class="ipo-fold-body visual-fold-body">
+                      <button type="button" class="ipo-visual-card" onclick="openImg('images/q16-input-map.png')" aria-label="放大查看第16题Input输入图">
+                        <img src="images/q16-input-map.png" alt="第16题 Input 输入：真实情境封装输入">
+                      </button>
                     </div>
                   </article>
 
@@ -1413,38 +1450,10 @@
                       <span><b>Process 处理</b><span>子问题链推进 · 关联结构处理</span></span>
                       <span class="fold-arrow">›</span>
                     </button>
-                    <div class="ipo-fold-body">
-                      <div class="problem-chain">
-                        <div class="chain-card">
-                          <b>第(1)问<br>算法设计</b>
-                          <span>模块识别与功能匹配</span>
-                          <em>单点/多点应用</em>
-                        </div>
-                        <div class="chain-card">
-                          <b>第(2)问<br>数据推演</b>
-                          <span>阈值判断与规则应用</span>
-                          <em>多点关联/条件整合</em>
-                        </div>
-                        <div class="chain-card">
-                          <b>第(3)问<br>代码补全</b>
-                          <span>MQTT发布/订阅实现</span>
-                          <em>知识整合/编码应用</em>
-                        </div>
-                        <div class="chain-card">
-                          <b>第(4)问<br>DDoS防范</b>
-                          <span>安全威胁识别与决策</span>
-                          <em>网络安全综合应用</em>
-                        </div>
-                        <div class="chain-card value">
-                          <b>第(5)问<br>自主可控</b>
-                          <span>技术依赖风险分析</span>
-                          <em>拓展抽象/价值升华</em>
-                        </div>
-                      </div>
-                      <ul>
-                        <li>五个子问前后依赖、层层递进，形成整题关联结构。</li>
-                        <li>从模块匹配、数据推演推进到协议实现、安全决策与价值论证。</li>
-                      </ul>
+                    <div class="ipo-fold-body visual-fold-body">
+                      <button type="button" class="ipo-visual-card" onclick="openImg('images/q16-process-map.png')" aria-label="放大查看第16题Process处理图">
+                        <img src="images/q16-process-map.png" alt="第16题 Process 处理：问题关联结构处理">
+                      </button>
                     </div>
                   </article>
 
@@ -1456,7 +1465,7 @@
                     </button>
                     <div class="ipo-fold-body">
                       <div class="ipo-tags" style="--accent: var(--b300);">
-                        <button type="button" class="ipo-tag ipo-action-tag" onclick="openBlueprintModal()">多维双向细目表</button>
+                        <button type="button" class="ipo-tag ipo-action-tag" onclick="openBlueprintModal()">多维细目表</button>
                         <span class="ipo-tag">全卷数据画像</span>
                         <span class="ipo-tag">精准评价证据</span>
                       </div>
@@ -1535,19 +1544,7 @@
               </section>
 
               <section class="case-section">
-                <h3 class="case-section-title"><span class="case-index">3</span>解题说明</h3>
-                <div class="solution-grid">
-                  <ul>
-                    <li>rain=0 表示不下雨，hum=45 低于 50，说明土壤干燥。</li>
-                    <li>两个条件同时成立，系统应发布 on 指令启动水泵。</li>
-                    <li>MQTT 属于应用层轻量级发布/订阅协议，可用于远程设备控制。</li>
-                  </ul>
-                  <div class="answer-card">正确答案 <b>A</b></div>
-                </div>
-              </section>
-
-              <section class="case-section">
-                <h3 class="case-section-title"><span class="case-index">4</span>命题价值</h3>
+                <h3 class="case-section-title"><span class="case-index">3</span>命题价值</h3>
                 <div class="value-cards">
                   <div class="value-card"><b>真实链路</b>将 API 数据提取、条件判断与 MQTT 通信放入同一项目链路。</div>
                   <div class="value-card"><b>综合应用</b>考查“数据-算法-通信”的综合推演能力。</div>
@@ -1612,19 +1609,7 @@
               </section>
 
               <section class="case-section">
-                <h3 class="case-section-title"><span class="case-index">3</span>解题说明</h3>
-                <div class="solution-grid">
-                  <ul>
-                    <li>数据包去向依据网络层 IP 包头部中的目标 IP 地址。</li>
-                    <li>路径比较：A→B→D→F=12ms；A→C→D→F=7ms；A→C→E→F=10ms。</li>
-                    <li>最短路径总延迟为 7 毫秒，因此选择 C。</li>
-                  </ul>
-                  <div class="answer-card">正确答案 <b>C</b></div>
-                </div>
-              </section>
-
-              <section class="case-section">
-                <h3 class="case-section-title"><span class="case-index">4</span>命题价值</h3>
+                <h3 class="case-section-title"><span class="case-index">3</span>命题价值</h3>
                 <div class="value-cards">
                   <div class="value-card"><b>真实任务</b>将网络拓扑识别、路径比较与网络层寻址放入同一项目链路。</div>
                   <div class="value-card"><b>计算思维</b>考查路径权值比较、最短路径推演与协议定位能力。</div>
@@ -1637,50 +1622,10 @@
       </section>
 
       <!-- ============================================== -->
-      <!-- SLIDE 6: 整体反思 -->
+      <!-- FINAL SLIDE: 整体反思 -->
       <!-- ============================================== -->
-      <section class="slide" id="slide6">
-        <header class="hdr" style="justify-content: center; transform: translateY(-10px);">
-          <h1 style="font-size: 3rem;">整体反思</h1>
-        </header>
-
-        <main class="main">
-          <div class="panel" style="background: transparent; border: none; box-shadow: none;">
-            
-            <!-- Highlights -->
-            <div class="reflection-cards">
-              <div class="r-card">
-                <div class="r-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-                <h3>情境即考题</h3>
-                <p>将深圳本土工程转化为命题情境，杜绝架空虚构，实现身边事考真本事。</p>
-              </div>
-              <div class="r-card">
-                <div class="r-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-                <h3>一题多知</h3>
-                <p>跨模块多知识点交织设问，打破死记硬背，考验系统性架构思维。</p>
-              </div>
-              <div class="r-card">
-                <div class="r-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-                <h3>评价即育人</h3>
-                <p>将 AI 伦理和自主可控等核心价值观贯穿全卷，发挥考试立德树人功能。</p>
-              </div>
-            </div>
-
-            <!-- Quote -->
-            <div class="quote-box">
-              <p>让每一个答题的学生，不是在做题，<br>而是在完成一次对信息世界的探索。</p>
-            </div>
-
-            <!-- Improvements -->
-            <div style="text-align: center;">
-              <div class="improvement">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal-l)" stroke-width="2" style="width: 24px; height: 24px;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                <span><b>改进方向：</b>引入基于真实物联网平台的操作性评价任务，强化实践导向。</span>
-              </div>
-            </div>
-
-          </div>
-        </main>
+      <section class="slide image-slide" id="slide6" aria-label="整体反思">
+        <img src="images/reflection-full-16x10.png" alt="整体反思">
       </section>
 
     </div>
@@ -1724,31 +1669,8 @@
         </div>
         <button class="mo-close" style="position: static; transform: none; box-shadow: 0 4px 12px rgba(0,0,0,0.5);" onclick="closeModal('q16BlueprintModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
       </div>
-      <div class="blueprint-table-wrap">
-        <table class="blueprint-table" aria-label="第16题多维细目表">
-          <thead>
-            <tr>
-              <th>题号</th><th>题型</th><th>分值</th><th>情境载体<br>（PBL项目）</th><th>考查知识点<br>（核心测试点）</th><th>课标内容模块<br>（第四学段）</th><th>核心素养</th><th>认知层次</th><th>能力要求</th><th>难度</th><th>预估得分率</th><th>教材出处<br>（课时对应）</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>16(1)</td><td>填空题</td><td>8</td><td>大沙河：物联网流程图模块匹配</td><td>物联网系统流程：采集→传输→分析→反馈；模块功能匹配</td><td>物联网实践与探索（环境数据要感知）</td><td>计算思维</td><td>分析</td><td>设计</td><td>★★★★</td><td>0.65</td><td>八年级<br>第3课</td>
-            </tr>
-            <tr>
-              <td>16(2)</td><td>填表题</td><td>6</td><td>大沙河：传感器数据推演判断</td><td>基于阈值条件的数据推演（PH范围/红外距离/逻辑判断）</td><td>物联网实践与探索（反馈控制有算法）</td><td>计算思维</td><td>应用</td><td>推演</td><td>★★★</td><td>0.80</td><td>八年级<br>第20课</td>
-            </tr>
-            <tr>
-              <td>16(3)</td><td>填空题</td><td>6</td><td>大沙河：MQTT通信代码补全</td><td>MQTT协议 publish/subscribe 方法；Python物联网编程</td><td>物联网实践与探索（物物互通有新径）</td><td>计算思维、数字化学习与创新</td><td>应用</td><td>设计</td><td>★★★★</td><td>0.55</td><td>八年级<br>第10课</td>
-            </tr>
-            <tr>
-              <td>16(4)</td><td>单选题</td><td>4</td><td>大沙河：DDoS拒绝服务攻击</td><td>网络安全威胁防范；DDoS攻击原理与防火墙策略</td><td>物联网实践与探索（自主可控意义大）</td><td>信息社会责任</td><td>理解</td><td>辨析</td><td>★★★</td><td>0.80</td><td>八年级<br>第29课</td>
-            </tr>
-            <tr>
-              <td>16(5)</td><td>简答题</td><td>6</td><td>大沙河：自主可控与生态数据安全</td><td>信息社会责任；核心技术自主可控对国家安全的意义</td><td>人工智能与智慧社会（自主可控意义大）</td><td>信息社会责任</td><td>评价</td><td>论证</td><td>★★★</td><td>0.70</td><td>八年级<br>第29课</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="blueprint-image-wrap" onclick="openImg('images/q16-blueprint-table.png')" role="button" tabindex="0" aria-label="放大查看第16题多维细目表">
+        <img src="images/q16-blueprint-table.png" alt="第16题多维细目表">
       </div>
     </div>
   </div>
