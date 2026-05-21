@@ -61,7 +61,7 @@
     }
     .slider-track {
       display: flex;
-      width: 400vw; height: 100%;
+      width: 600vw; height: 100%;
       transition: transform 0.8s var(--expo);
       will-change: transform;
     }
@@ -483,6 +483,10 @@
       left: 16px; bottom: 10px; opacity: .42; transform: scale(.84); transform-origin: left bottom;
     }
     body:has(#slide3.active) .nav-controls:hover { opacity: .9; transform: scale(.84) translateY(-1px); }
+    body:has(.showcase-slide.active) .nav-controls {
+      left: 16px; bottom: 10px; opacity: .42; transform: scale(.84); transform-origin: left bottom;
+    }
+    body:has(.showcase-slide.active) .nav-controls:hover { opacity: .9; transform: scale(.84) translateY(-1px); }
     /* ==================================================== */
     /* SLIDE 3: 试题展示 */
     /* ==================================================== */
@@ -542,15 +546,15 @@
       background: linear-gradient(135deg, rgba(92,197,192,.11), rgba(240,200,110,.08));
       display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; flex: 0 0 auto;
     }
-    .analysis-lead h3 { margin: 0; color: var(--w); font-size: 1.28rem; line-height: 1.18; font-weight: 900; letter-spacing: .03em; }
-    .analysis-lead p { margin: 6px 0 0; color: rgba(255,255,255,.66); font-size: .84rem; line-height: 1.35; font-weight: 750; }
+    .analysis-lead h3 { margin: 0; color: var(--w); font-size: 1.34rem; line-height: 1.18; font-weight: 900; letter-spacing: .03em; }
+    .analysis-lead p { margin: 6px 0 0; color: rgba(255,255,255,.68); font-size: .9rem; line-height: 1.35; font-weight: 780; }
     .analysis-score { border-radius: 999px; padding: 9px 12px; color: var(--gold-l); background: rgba(240,200,110,.1); border: 1px solid rgba(240,200,110,.26); font-size: .88rem; font-weight: 900; white-space: nowrap; }
     .ipo-map {
       display: grid; grid-template-columns: minmax(0,1fr) 26px minmax(0,1fr) 26px minmax(0,1fr);
       align-items: stretch; gap: 6px; flex: 0 0 auto;
     }
     .ipo-flow-chip {
-      min-width: 0; min-height: 104px; border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 12px 10px 10px;
+      min-width: 0; min-height: 112px; border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 13px 10px 11px;
       background: rgba(255,255,255,.045); color: var(--w); font: inherit; text-align: left; cursor: pointer;
       transition: border-color .22s ease, background .22s ease, transform .22s ease, opacity .22s ease, box-shadow .22s ease;
     }
@@ -566,9 +570,9 @@
       margin-right: 7px; color: #071426; background: var(--accent); font-size: 1.18rem; font-weight: 900;
       box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 50%, transparent);
     }
-    .ipo-flow-chip strong { display: flex; align-items: center; color: var(--w); font-size: .82rem; line-height: 1.1; font-weight: 900; white-space: nowrap; }
-    .ipo-flow-chip span { display: block; margin-top: 8px; color: rgba(255,255,255,.86); font-size: .76rem; line-height: 1.2; font-weight: 900; }
-    .ipo-flow-chip small { display: block; margin-top: 6px; color: rgba(255,255,255,.58); font-size: .62rem; line-height: 1.2; font-weight: 850; }
+    .ipo-flow-chip strong { display: flex; align-items: center; color: var(--w); font-size: .88rem; line-height: 1.1; font-weight: 900; white-space: nowrap; }
+    .ipo-flow-chip span { display: block; margin-top: 8px; color: rgba(255,255,255,.87); font-size: .82rem; line-height: 1.2; font-weight: 900; }
+    .ipo-flow-chip small { display: block; margin-top: 6px; color: rgba(255,255,255,.6); font-size: .66rem; line-height: 1.2; font-weight: 850; }
     .ipo-map-arrow {
       display: grid; place-items: center; color: rgba(92,197,192,.8); font-size: 1.35rem; font-weight: 900;
       text-shadow: 0 0 10px rgba(92,197,192,.6);
@@ -593,19 +597,27 @@
     .ipo-fold-body { display: none; padding: 0; }
     .ipo-fold.open .ipo-fold-body {
       display: flex; flex-direction: column; justify-content: center; width: 100%; min-height: 100%;
-      padding: 18px 18px 17px; animation: fi .22s ease forwards;
+      padding: 19px 18px 18px; animation: fi .22s ease forwards;
     }
-    .ipo-fold-body ul { display: flex; flex-direction: column; gap: 11px; margin: 0; padding: 0 0 0 18px; }
+    .ipo-fold-body ul { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0 0 0 19px; }
     .ipo-fold-body li {
-      list-style: none; position: relative; color: rgba(255,255,255,.9); font-size: 1.02rem; line-height: 1.38; font-weight: 820;
+      list-style: none; position: relative; color: rgba(255,255,255,.92); font-size: 1.08rem; line-height: 1.4; font-weight: 840;
     }
     .ipo-fold-body li::before { content: ''; position: absolute; left: -16px; top: .58em; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
     .ipo-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
     .ipo-tag {
       border-radius: 999px; padding: 7px 10px; border: 1px solid color-mix(in srgb, var(--accent) 38%, rgba(255,255,255,.12));
       background: color-mix(in srgb, var(--accent) 10%, rgba(255,255,255,.045)); color: rgba(255,255,255,.9);
-      font-size: .78rem; line-height: 1.1; font-weight: 900; white-space: nowrap;
+      font-size: .84rem; line-height: 1.1; font-weight: 900; white-space: nowrap;
     }
+    .ipo-action-tag { font: inherit; cursor: pointer; }
+    .ipo-action-tag:hover { transform: translateY(-1px); box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 22%, transparent); }
+    .knowledge-input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin: 2px 0 15px; }
+    .knowledge-input {
+      border-radius: 13px; padding: 10px 11px; border: 1px solid rgba(92,197,192,.24);
+      background: rgba(92,197,192,.075); color: rgba(255,255,255,.9); font-size: .82rem; line-height: 1.25; font-weight: 850;
+    }
+    .knowledge-input b { display: block; color: var(--teal-l); font-size: .72rem; margin-bottom: 5px; letter-spacing: .04em; }
     .problem-chain {
       display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-bottom: 16px;
     }
@@ -619,28 +631,118 @@
       color: rgba(92,197,192,.85); font-size: 1.05rem; font-weight: 900; z-index: 2;
     }
     .chain-card.value { border-color: rgba(240,200,110,.44); background: rgba(240,200,110,.1); }
-    .chain-card b { display: block; color: var(--w); font-size: .76rem; line-height: 1.2; font-weight: 900; }
-    .chain-card span { display: block; margin-top: 9px; color: rgba(255,255,255,.7); font-size: .62rem; line-height: 1.25; font-weight: 850; }
+    .chain-card b { display: block; color: var(--w); font-size: .82rem; line-height: 1.2; font-weight: 900; }
+    .chain-card span { display: block; margin-top: 9px; color: rgba(255,255,255,.72); font-size: .66rem; line-height: 1.25; font-weight: 860; }
     .chain-card em {
-      display: block; margin-top: 9px; color: var(--gold-l); font-style: normal; font-size: .56rem; line-height: 1.18; font-weight: 900;
+      display: block; margin-top: 9px; color: var(--gold-l); font-style: normal; font-size: .6rem; line-height: 1.18; font-weight: 900;
     }
     .ipo-note {
       border-radius: 13px; padding: 13px 14px; border: 1px solid color-mix(in srgb, var(--accent) 34%, rgba(255,255,255,.1));
       background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 12%, transparent), rgba(255,255,255,.035));
-      color: rgba(255,255,255,.9); font-size: .9rem; line-height: 1.36; font-weight: 880;
+      color: rgba(255,255,255,.9); font-size: .96rem; line-height: 1.36; font-weight: 880;
     }
     .dimension-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
     .dimension-card {
       border-radius: 13px; padding: 14px 13px; border: 1px solid rgba(255,255,255,.11); background: rgba(255,255,255,.045);
     }
-    .dimension-card b { display: block; color: var(--accent); font-size: .88rem; line-height: 1.1; font-weight: 900; }
-    .dimension-card span { display: block; margin-top: 8px; color: rgba(255,255,255,.8); font-size: .76rem; line-height: 1.32; font-weight: 820; }
+    .dimension-card b { display: block; color: var(--accent); font-size: .96rem; line-height: 1.1; font-weight: 900; }
+    .dimension-card span { display: block; margin-top: 8px; color: rgba(255,255,255,.82); font-size: .84rem; line-height: 1.34; font-weight: 830; }
+
+    .mo-blueprint .mc {
+      max-width: 1260px; width: 97vw; max-height: 92vh;
+      background: linear-gradient(160deg, #071329, #0d2146 62%, #071329);
+      border: 1px solid rgba(147,181,225,.24); box-shadow: 0 28px 90px rgba(0,0,0,.72), 0 0 36px rgba(92,197,192,.16);
+    }
+    .blueprint-hdr {
+      padding: 18px 24px; display: flex; align-items: center; justify-content: space-between;
+      background: rgba(0,0,0,.24); border-bottom: 1px solid rgba(255,255,255,.11);
+    }
+    .blueprint-hdr h3 { margin: 0; color: var(--w); font-size: 1.45rem; font-weight: 900; letter-spacing: .08em; }
+    .blueprint-hdr span { display: block; margin-top: 4px; color: rgba(255,255,255,.58); font-size: .8rem; font-weight: 800; letter-spacing: .04em; }
+    .blueprint-table-wrap { padding: 16px; overflow: auto; min-height: 0; }
+    .blueprint-table { width: 100%; border-collapse: collapse; min-width: 1160px; color: #071329; background: #eef8f0; border-radius: 12px; overflow: hidden; }
+    .blueprint-table th {
+      background: #1f5f9f; color: #fff; padding: 11px 9px; border: 1px solid #0d2b4a;
+      font-size: .88rem; line-height: 1.25; font-weight: 900; text-align: center;
+    }
+    .blueprint-table td {
+      padding: 11px 9px; border: 1px solid rgba(7,19,41,.62); font-size: .82rem; line-height: 1.34; font-weight: 760; vertical-align: middle;
+    }
+    .blueprint-table td:nth-child(1), .blueprint-table td:nth-child(2), .blueprint-table td:nth-child(3),
+    .blueprint-table td:nth-child(7), .blueprint-table td:nth-child(8), .blueprint-table td:nth-child(9),
+    .blueprint-table td:nth-child(10), .blueprint-table td:nth-child(11) { text-align: center; white-space: nowrap; }
 
     /* ==================================================== */
-    /* SLIDE 4: 整体反思 */
+    /* SLIDE 4-5: 试题展示延展 */
     /* ==================================================== */
-    #slide4 .main { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }
-    .slide.active#slide4 .panel { opacity: 1; transform: translateY(0); transition-delay: 0.1s; width: 100%; max-width: 1000px; }
+    .showcase-slide .main {
+      grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr); gap: 22px; padding-top: 4px;
+      min-height: 0; overflow: hidden;
+    }
+    .slide.active.showcase-slide .panel { opacity: 1; transform: translateY(0); transition-delay: .1s; }
+    .showcase-slide .panel { padding: 18px; border-radius: 20px; }
+    .showcase-slide .sh { margin-bottom: 12px; justify-content: space-between; gap: 12px; }
+    .showcase-slide .sh h2 { font-size: 1.42rem; letter-spacing: .08em; white-space: nowrap; }
+    .case-source-panel, .case-analysis-panel { min-height: 0; }
+    .case-source-frame {
+      flex: 1; min-height: 0; border-radius: 15px; overflow: hidden; border: 1px solid rgba(147,181,225,.22);
+      background: rgba(244,249,255,.98); box-shadow: inset 0 0 24px rgba(255,255,255,.28), 0 18px 34px rgba(0,0,0,.28);
+      cursor: zoom-in; position: relative;
+    }
+    .case-source-frame img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
+    .case-source-frame::after {
+      content: '点击放大原题'; position: absolute; right: 12px; bottom: 12px; border-radius: 999px; padding: 5px 10px;
+      background: rgba(8,19,41,.62); border: 1px solid rgba(255,255,255,.18); color: rgba(255,255,255,.86);
+      font-size: .64rem; font-weight: 900; letter-spacing: .04em; backdrop-filter: blur(8px);
+    }
+    .case-analysis-body { flex: 1; min-height: 0; display: grid; grid-template-rows: auto auto auto auto; gap: 8px; }
+    .case-section {
+      min-height: 0; border-radius: 14px; padding: 10px 12px; border: 1px solid rgba(147,181,225,.18);
+      background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.028));
+      box-shadow: inset 0 0 20px rgba(255,255,255,.025);
+    }
+    .case-section-title { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; color: var(--w); font-weight: 900; letter-spacing: .04em; font-size: .96rem; }
+    .case-index {
+      width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+      background: var(--b300); color: #061329; font-size: .9rem; box-shadow: 0 0 14px rgba(90,141,212,.35);
+    }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 8px; }
+    .detail-item {
+      border-radius: 9px; padding: 6px 8px; background: rgba(5,17,39,.44); border: 1px solid rgba(255,255,255,.08);
+      color: rgba(255,255,255,.82); font-size: .68rem; line-height: 1.25; font-weight: 780;
+    }
+    .detail-item b { color: var(--gold-l); font-weight: 900; margin-right: 4px; }
+    .detail-item.wide { grid-column: span 2; }
+    .solo-rows { display: grid; gap: 5px; }
+    .solo-row { display: grid; grid-template-columns: 82px minmax(0,1fr); align-items: center; gap: 7px; }
+    .solo-row b {
+      border-radius: 8px; padding: 5px 7px; text-align: center; color: #061329; background: var(--solo);
+      font-size: .68rem; font-weight: 900; white-space: nowrap;
+    }
+    .solo-row span { color: rgba(255,255,255,.83); font-size: .66rem; line-height: 1.25; font-weight: 760; }
+    .solo-target {
+      margin-top: 6px; border-radius: 9px; padding: 6px 8px; background: rgba(92,197,192,.12);
+      color: var(--teal-l); font-size: .72rem; font-weight: 900; text-align: center;
+    }
+    .solution-grid { display: grid; grid-template-columns: minmax(0,1fr) 132px; gap: 10px; align-items: stretch; }
+    .solution-grid ul { margin: 0; padding-left: 17px; color: rgba(255,255,255,.84); font-size: .72rem; line-height: 1.32; font-weight: 780; }
+    .answer-card {
+      border-radius: 12px; border: 1px solid rgba(92,197,192,.34); background: rgba(92,197,192,.1);
+      color: var(--w); display: grid; place-items: center; text-align: center; font-size: .92rem; font-weight: 900;
+    }
+    .answer-card b { color: var(--gold-l); font-size: 1.25rem; margin-left: 4px; }
+    .value-cards { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
+    .value-card {
+      min-height: 52px; border-radius: 12px; padding: 8px; border: 1px solid rgba(92,197,192,.22);
+      background: rgba(92,197,192,.07); color: rgba(255,255,255,.82); font-size: .66rem; line-height: 1.26; font-weight: 780;
+    }
+    .value-card b { display: block; color: var(--teal-l); font-size: .76rem; margin-bottom: 4px; }
+
+    /* ==================================================== */
+    /* SLIDE 6: 整体反思 */
+    /* ==================================================== */
+    #slide6 .main { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }
+    .slide.active#slide6 .panel { opacity: 1; transform: translateY(0); transition-delay: 0.1s; width: 100%; max-width: 1000px; }
     
     .reflection-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; margin-bottom: 40px; width: 100%; }
     .r-card { background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)); border: 1px solid var(--w15); border-radius: 16px; padding: 30px 24px; text-align: center; transition: transform 0.4s ease; }
@@ -989,6 +1091,8 @@
       <div class="nav-dot" data-slide="1"></div>
       <div class="nav-dot" data-slide="2"></div>
       <div class="nav-dot" data-slide="3"></div>
+      <div class="nav-dot" data-slide="4"></div>
+      <div class="nav-dot" data-slide="5"></div>
     </div>
     <button class="nav-btn" id="btnNext">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -1273,7 +1377,7 @@
                   <button type="button" class="ipo-flow-chip" data-ipo-target="o" onclick="openIpoFold('o')" style="--accent: var(--b300);">
                     <strong><span class="ipo-node-mark">O</span>Output 输出</strong>
                     <span>高阶思维评估输出</span>
-                    <small>细目表 · 数据画像 · SOLO评分</small>
+                    <small>细目表 · 数据画像 · 精准评价</small>
                   </button>
                 </div>
 
@@ -1290,10 +1394,15 @@
                         <span class="ipo-tag">水质监测预警</span>
                         <span class="ipo-tag">人员非法靠近预警</span>
                       </div>
+                      <div class="knowledge-input-grid">
+                        <div class="knowledge-input"><b>16(1)</b>物联网系统流程：采集→传输→分析→反馈；模块功能匹配</div>
+                        <div class="knowledge-input"><b>16(2)</b>基于阈值条件的数据推演：PH 范围、红外距离、逻辑判断</div>
+                        <div class="knowledge-input"><b>16(3)</b>MQTT 协议 publish / subscribe 方法；Python 物联网编程</div>
+                        <div class="knowledge-input"><b>16(4)(5)</b>网络安全威胁防范；核心技术自主可控与国家安全</div>
+                      </div>
                       <ul>
-                        <li>以“大沙河生态保护”为本土真实情境，输入水质、红外、通信与安全等情境数据。</li>
-                        <li>对应课标模块：物联网实践与探索，嵌入人工智能与智慧社会中的自主可控议题。</li>
-                        <li>把学业质量要求转化为可观察任务：流程识别、阈值判断、协议代码、攻击防护、价值论证。</li>
+                        <li>情境数据输入：水质 PH、浊度、红外距离、MQTT 通信与安全攻击。</li>
+                        <li>评价任务输入：流程识别、阈值判断、协议代码、攻击防护、价值论证。</li>
                       </ul>
                     </div>
                   </article>
@@ -1347,9 +1456,9 @@
                     </button>
                     <div class="ipo-fold-body">
                       <div class="ipo-tags" style="--accent: var(--b300);">
-                        <span class="ipo-tag">多维双向细目表</span>
+                        <button type="button" class="ipo-tag ipo-action-tag" onclick="openBlueprintModal()">多维双向细目表</button>
                         <span class="ipo-tag">全卷数据画像</span>
-                        <span class="ipo-tag">SOLO质性评分</span>
+                        <span class="ipo-tag">精准评价证据</span>
                       </div>
                       <div class="dimension-grid" style="--accent: var(--b300);">
                         <div class="dimension-card">
@@ -1374,9 +1483,163 @@
       </section>
 
       <!-- ============================================== -->
-      <!-- SLIDE 4: 整体反思 -->
+      <!-- SLIDE 4: 试题展示 · 第9题 -->
       <!-- ============================================== -->
-      <section class="slide" id="slide4">
+      <section class="slide showcase-slide" id="slide4">
+        <header class="hdr">
+          <h1>试题展示</h1>
+          <div class="badge">第9题 · 智慧农场 MQTT 控制</div>
+        </header>
+
+        <main class="main">
+          <div class="panel case-source-panel">
+            <div class="sh">
+              <div class="dots"><span></span><span></span></div>
+              <h2>第9题原题</h2>
+              <div class="dots"><span></span><span></span></div>
+            </div>
+            <div class="case-source-frame" onclick="openImg('images/showcase-q9-source.png')">
+              <img src="images/showcase-q9-source.png" alt="第9题原题展示">
+            </div>
+          </div>
+
+          <div class="panel case-analysis-panel">
+            <div class="sh">
+              <div class="dots"><span></span><span></span></div>
+              <h2>试题说明</h2>
+              <div class="dots"><span></span><span></span></div>
+            </div>
+            <div class="case-analysis-body">
+              <section class="case-section">
+                <h3 class="case-section-title"><span class="case-index">1</span>多维细目表定位</h3>
+                <div class="detail-grid">
+                  <div class="detail-item"><b>题型/分值</b>单选题 3分</div>
+                  <div class="detail-item"><b>认知层次</b>应用</div>
+                  <div class="detail-item wide"><b>情境载体</b>百草园智慧农场 MQTT 控制</div>
+                  <div class="detail-item wide"><b>核心测试点</b>HTTP 通信基本过程；MQTT 发布/订阅机制；API 数据提取</div>
+                  <div class="detail-item"><b>核心素养</b>信息意识、计算思维</div>
+                  <div class="detail-item"><b>能力要求</b>推演</div>
+                  <div class="detail-item"><b>难度</b>★★★</div>
+                  <div class="detail-item"><b>预估得分率</b>0.70</div>
+                </div>
+              </section>
+
+              <section class="case-section">
+                <h3 class="case-section-title"><span class="case-index">2</span>SOLO 分析</h3>
+                <div class="solo-rows">
+                  <div class="solo-row" style="--solo:#5a8dd4;"><b>一元结构</b><span>能识别单一信息，如 rain=0 表示不下雨，或 hum=45 低于 50 表示土壤干燥。</span></div>
+                  <div class="solo-row" style="--solo:#5cc5c0;"><b>多元结构</b><span>能同时提取天气数据与湿度数据，知道系统需要依据两个条件进行判断。</span></div>
+                  <div class="solo-row" style="--solo:#f0c86e;"><b>关联结构</b><span>能将“土壤干燥”与“不下雨”建立联系，并结合 MQTT 主题发布机制推断系统会向 school/pump 发布 on 指令。</span></div>
+                </div>
+                <div class="solo-target">目标层级：关联结构（Relational）</div>
+              </section>
+
+              <section class="case-section">
+                <h3 class="case-section-title"><span class="case-index">3</span>解题说明</h3>
+                <div class="solution-grid">
+                  <ul>
+                    <li>rain=0 表示不下雨，hum=45 低于 50，说明土壤干燥。</li>
+                    <li>两个条件同时成立，系统应发布 on 指令启动水泵。</li>
+                    <li>MQTT 属于应用层轻量级发布/订阅协议，可用于远程设备控制。</li>
+                  </ul>
+                  <div class="answer-card">正确答案 <b>A</b></div>
+                </div>
+              </section>
+
+              <section class="case-section">
+                <h3 class="case-section-title"><span class="case-index">4</span>命题价值</h3>
+                <div class="value-cards">
+                  <div class="value-card"><b>真实链路</b>将 API 数据提取、条件判断与 MQTT 通信放入同一项目链路。</div>
+                  <div class="value-card"><b>综合应用</b>考查“数据-算法-通信”的综合推演能力。</div>
+                  <div class="value-card"><b>以评促学</b>体现素养立意、真实问题与项目化命题导向。</div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </main>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- SLIDE 5: 试题展示 · 第3题 -->
+      <!-- ============================================== -->
+      <section class="slide showcase-slide" id="slide5">
+        <header class="hdr">
+          <h1>试题展示</h1>
+          <div class="badge">第3题 · 无人机物流最短路径</div>
+        </header>
+
+        <main class="main">
+          <div class="panel case-source-panel">
+            <div class="sh">
+              <div class="dots"><span></span><span></span></div>
+              <h2>第3题原题</h2>
+              <div class="dots"><span></span><span></span></div>
+            </div>
+            <div class="case-source-frame" onclick="openImg('images/showcase-q3-source.png')">
+              <img src="images/showcase-q3-source.png" alt="第3题原题展示">
+            </div>
+          </div>
+
+          <div class="panel case-analysis-panel">
+            <div class="sh">
+              <div class="dots"><span></span><span></span></div>
+              <h2>试题说明</h2>
+              <div class="dots"><span></span><span></span></div>
+            </div>
+            <div class="case-analysis-body">
+              <section class="case-section">
+                <h3 class="case-section-title"><span class="case-index">1</span>多维细目表定位</h3>
+                <div class="detail-grid">
+                  <div class="detail-item"><b>题型/分值</b>单选题 3分</div>
+                  <div class="detail-item"><b>认知层次</b>应用</div>
+                  <div class="detail-item wide"><b>情境载体</b>无人机物流指令传输</div>
+                  <div class="detail-item wide"><b>核心测试点</b>路由器主要功能；最短路径算法；网络层 IP 寻址</div>
+                  <div class="detail-item"><b>核心素养</b>计算思维</div>
+                  <div class="detail-item"><b>能力要求</b>推演</div>
+                  <div class="detail-item"><b>难度</b>★★★★</div>
+                  <div class="detail-item"><b>预估得分率</b>0.55</div>
+                </div>
+              </section>
+
+              <section class="case-section">
+                <h3 class="case-section-title"><span class="case-index">2</span>SOLO 分析</h3>
+                <div class="solo-rows">
+                  <div class="solo-row" style="--solo:#5a8dd4;"><b>一元结构</b><span>能识别单一信息，如路由器依据 IP 包头部中的目标 IP 地址转发。</span></div>
+                  <div class="solo-row" style="--solo:#5cc5c0;"><b>多元结构</b><span>能分别比较多条路径延迟，如 A→B→D→F、A→C→D→F、A→C→E→F。</span></div>
+                  <div class="solo-row" style="--solo:#f0c86e;"><b>关联结构</b><span>能把网络层寻址与最短路径计算建立联系，推断最佳路径总延迟为 7 毫秒。</span></div>
+                </div>
+                <div class="solo-target">目标层级：关联结构（Relational）</div>
+              </section>
+
+              <section class="case-section">
+                <h3 class="case-section-title"><span class="case-index">3</span>解题说明</h3>
+                <div class="solution-grid">
+                  <ul>
+                    <li>数据包去向依据网络层 IP 包头部中的目标 IP 地址。</li>
+                    <li>路径比较：A→B→D→F=12ms；A→C→D→F=7ms；A→C→E→F=10ms。</li>
+                    <li>最短路径总延迟为 7 毫秒，因此选择 C。</li>
+                  </ul>
+                  <div class="answer-card">正确答案 <b>C</b></div>
+                </div>
+              </section>
+
+              <section class="case-section">
+                <h3 class="case-section-title"><span class="case-index">4</span>命题价值</h3>
+                <div class="value-cards">
+                  <div class="value-card"><b>真实任务</b>将网络拓扑识别、路径比较与网络层寻址放入同一项目链路。</div>
+                  <div class="value-card"><b>计算思维</b>考查路径权值比较、最短路径推演与协议定位能力。</div>
+                  <div class="value-card"><b>素养导向</b>体现“素养立意、真实问题、以评促学”的命题取向。</div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </main>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- SLIDE 6: 整体反思 -->
+      <!-- ============================================== -->
+      <section class="slide" id="slide6">
         <header class="hdr" style="justify-content: center; transform: translateY(-10px);">
           <h1 style="font-size: 3rem;">整体反思</h1>
         </header>
@@ -1448,6 +1711,45 @@
     <button class="mo-close" onclick="closeModal('imgModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     <div class="mc">
       <img src="" id="lightboxImg" alt="Lightbox">
+    </div>
+  </div>
+
+  <!-- ===== MODAL: Question 16 Blueprint ===== -->
+  <div class="mo mo-blueprint" id="q16BlueprintModal">
+    <div class="mc">
+      <div class="blueprint-hdr">
+        <div>
+          <h3>第16题 · 多维细目表</h3>
+          <span>本大题 5 个子问：知识点、能力要求、难度与教材出处对齐</span>
+        </div>
+        <button class="mo-close" style="position: static; transform: none; box-shadow: 0 4px 12px rgba(0,0,0,0.5);" onclick="closeModal('q16BlueprintModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <div class="blueprint-table-wrap">
+        <table class="blueprint-table" aria-label="第16题多维细目表">
+          <thead>
+            <tr>
+              <th>题号</th><th>题型</th><th>分值</th><th>情境载体<br>（PBL项目）</th><th>考查知识点<br>（核心测试点）</th><th>课标内容模块<br>（第四学段）</th><th>核心素养</th><th>认知层次</th><th>能力要求</th><th>难度</th><th>预估得分率</th><th>教材出处<br>（课时对应）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>16(1)</td><td>填空题</td><td>8</td><td>大沙河：物联网流程图模块匹配</td><td>物联网系统流程：采集→传输→分析→反馈；模块功能匹配</td><td>物联网实践与探索（环境数据要感知）</td><td>计算思维</td><td>分析</td><td>设计</td><td>★★★★</td><td>0.65</td><td>八年级<br>第3课</td>
+            </tr>
+            <tr>
+              <td>16(2)</td><td>填表题</td><td>6</td><td>大沙河：传感器数据推演判断</td><td>基于阈值条件的数据推演（PH范围/红外距离/逻辑判断）</td><td>物联网实践与探索（反馈控制有算法）</td><td>计算思维</td><td>应用</td><td>推演</td><td>★★★</td><td>0.80</td><td>八年级<br>第20课</td>
+            </tr>
+            <tr>
+              <td>16(3)</td><td>填空题</td><td>6</td><td>大沙河：MQTT通信代码补全</td><td>MQTT协议 publish/subscribe 方法；Python物联网编程</td><td>物联网实践与探索（物物互通有新径）</td><td>计算思维、数字化学习与创新</td><td>应用</td><td>设计</td><td>★★★★</td><td>0.55</td><td>八年级<br>第10课</td>
+            </tr>
+            <tr>
+              <td>16(4)</td><td>单选题</td><td>4</td><td>大沙河：DDoS拒绝服务攻击</td><td>网络安全威胁防范；DDoS攻击原理与防火墙策略</td><td>物联网实践与探索（自主可控意义大）</td><td>信息社会责任</td><td>理解</td><td>辨析</td><td>★★★</td><td>0.80</td><td>八年级<br>第29课</td>
+            </tr>
+            <tr>
+              <td>16(5)</td><td>简答题</td><td>6</td><td>大沙河：自主可控与生态数据安全</td><td>信息社会责任；核心技术自主可控对国家安全的意义</td><td>人工智能与智慧社会（自主可控意义大）</td><td>信息社会责任</td><td>评价</td><td>论证</td><td>★★★</td><td>0.70</td><td>八年级<br>第29课</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -1666,9 +1968,9 @@
 
     // --- Slider & Navigation Logic ---
     let currentSlide = 0;
-    const totalSlides = 4;
     const track = document.getElementById('sliderTrack');
     const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
     const dots = document.querySelectorAll('.nav-dot');
     const btnPrev = document.getElementById('btnPrev');
     const btnNext = document.getElementById('btnNext');
@@ -2023,6 +2325,10 @@
       imgModal.classList.add('open');
     }
 
+    function openBlueprintModal() {
+      document.getElementById('q16BlueprintModal').classList.add('open');
+    }
+
     function closeModal(id) {
       if (id === 'dashboardModal') closeDashboardDrilldown(true);
       document.getElementById(id).classList.remove('open');
@@ -2040,6 +2346,7 @@
         }
         docModal.classList.remove('open');
         imgModal.classList.remove('open');
+        q16BlueprintModal.classList.remove('open');
         closeModal('dashboardModal');
       }
     });
