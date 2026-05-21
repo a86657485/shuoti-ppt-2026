@@ -479,10 +479,14 @@
     }
     body:has(#slide2.active) .nav-controls { opacity: .28; }
     body:has(#slide2.active) .nav-controls:hover { opacity: .9; }
+    body:has(#slide3.active) .nav-controls {
+      left: 16px; bottom: 10px; opacity: .42; transform: scale(.84); transform-origin: left bottom;
+    }
+    body:has(#slide3.active) .nav-controls:hover { opacity: .9; transform: scale(.84) translateY(-1px); }
     /* ==================================================== */
     /* SLIDE 3: 试题展示 */
     /* ==================================================== */
-    #slide3 .main { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 24px; padding-top: 4px; }
+    #slide3 .main { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 24px; padding-top: 4px; min-height: 0; overflow: hidden; }
     .slide.active#slide3 .panel { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
 
     #slide3 .panel { padding: 18px; border-radius: 20px; }
@@ -504,21 +508,21 @@
 
     .question-source-panel { min-height: 0; }
     .source-view { position: relative; z-index: 1; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; padding-bottom: 38px; }
-    .source-set { display: none; min-height: 0; flex: 1; grid-template-rows: minmax(0, 1fr) auto; gap: 10px; }
+    .source-set { display: none; min-height: 0; height: 100%; overflow: hidden; flex: 1; grid-template-rows: minmax(0, 1fr) auto; gap: 10px; }
     .source-set.active { display: grid; }
     .source-frame {
       position: relative; min-height: 0; border-radius: 14px; overflow: hidden; background: rgba(3,10,24,.52);
       border: 1px solid rgba(255,255,255,.12); box-shadow: inset 0 0 22px rgba(255,255,255,.035), 0 16px 32px rgba(0,0,0,.28);
       cursor: zoom-in;
     }
-    .source-frame img { width: 100%; height: 100%; object-fit: contain; object-position: top center; display: block; }
+    .source-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: top center; display: block; }
     .source-frame::after {
       content: '点击放大原题'; position: absolute; right: 12px; bottom: 12px; border-radius: 999px; padding: 5px 10px;
       background: rgba(0,0,0,.46); border: 1px solid rgba(255,255,255,.16); color: rgba(255,255,255,.78);
       font-size: .64rem; font-weight: 800; letter-spacing: .04em; backdrop-filter: blur(8px);
     }
     .source-thumbs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; min-height: 70px; }
-    .source-set[data-question="q16"] .source-thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .source-set[data-question="q16"] .source-thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .source-thumb {
       position: relative; min-width: 0; border: 1px solid rgba(255,255,255,.12); border-radius: 11px; overflow: hidden;
       background: rgba(255,255,255,.04); cursor: pointer; transition: transform .18s ease, border-color .18s ease, opacity .18s ease;
@@ -1152,14 +1156,17 @@
             <div class="source-view">
               <div class="source-set active" data-question="q16">
                 <div class="source-frame" onclick="openImg(document.getElementById('q16SourceMain').getAttribute('src'))">
-                  <img id="q16SourceMain" src="images/16-1.png" alt="第16题原题内容">
+                  <img id="q16SourceMain" src="images/q16_pdf/q16-page-8-q16.png" alt="第16题原题第1页">
                 </div>
                 <div class="source-thumbs" aria-label="第16题原题分页">
-                  <button type="button" class="source-thumb active" onclick="showSourceImage(this, 'images/16-1.png')">
-                    <img src="images/16-1.png" alt="第16题原题第一页">
+                  <button type="button" class="source-thumb active" onclick="showSourceImage(this, 'images/q16_pdf/q16-page-8-q16.png')">
+                    <img src="images/q16_pdf/q16-page-8-q16.png" alt="第16题题干与需求表">
                   </button>
-                  <button type="button" class="source-thumb" onclick="showSourceImage(this, 'images/16-3-1.png')">
-                    <img src="images/16-3-1.png" alt="第16题原题代码页">
+                  <button type="button" class="source-thumb" onclick="showSourceImage(this, 'images/q16_pdf/q16-page-9.png')">
+                    <img src="images/q16_pdf/q16-page-9.png" alt="第16题图11图12与第2小题">
+                  </button>
+                  <button type="button" class="source-thumb" onclick="showSourceImage(this, 'images/q16_pdf/q16-page-10.png')">
+                    <img src="images/q16_pdf/q16-page-10.png" alt="第16题代码题与安全责任题">
                   </button>
                 </div>
               </div>
@@ -1176,7 +1183,7 @@
               <div class="analysis-set active" data-question="q16">
                 <section class="analysis-lead">
                   <div>
-                    <h3>第16题：大沙河生态监测</h3>
+                    <h3>第16题：大沙河物联网生态监测</h3>
                     <p>30分 · 5个子问 · 物联网流程、数据推演、MQTT通信与信息社会责任综合考查</p>
                   </div>
                   <strong class="analysis-score">综合题 30分</strong>
