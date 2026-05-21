@@ -545,7 +545,36 @@
     .analysis-lead h3 { margin: 0; color: var(--w); font-size: 1.18rem; line-height: 1.18; font-weight: 900; letter-spacing: .03em; }
     .analysis-lead p { margin: 5px 0 0; color: rgba(255,255,255,.62); font-size: .76rem; line-height: 1.35; font-weight: 700; }
     .analysis-score { border-radius: 999px; padding: 8px 11px; color: var(--gold-l); background: rgba(240,200,110,.1); border: 1px solid rgba(240,200,110,.26); font-size: .8rem; font-weight: 900; white-space: nowrap; }
-    .ipo-accordion { min-height: 0; flex: 1; display: grid; grid-template-rows: auto auto auto; gap: 8px; }
+    .ipo-map {
+      display: grid; grid-template-columns: minmax(0,1fr) 22px minmax(0,1fr) 22px minmax(0,1fr);
+      align-items: stretch; gap: 5px; flex: 0 0 auto;
+    }
+    .ipo-flow-chip {
+      min-width: 0; border: 1px solid rgba(255,255,255,.12); border-radius: 13px; padding: 9px 9px 8px;
+      background: rgba(255,255,255,.045); color: var(--w); font: inherit; text-align: left; cursor: pointer;
+      transition: border-color .22s ease, background .22s ease, transform .22s ease, opacity .22s ease, box-shadow .22s ease;
+    }
+    .ipo-flow-chip:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--accent) 56%, rgba(255,255,255,.12)); }
+    .ipo-flow-chip.active {
+      border-color: color-mix(in srgb, var(--accent) 68%, rgba(255,255,255,.14));
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 18%, transparent), rgba(255,255,255,.035));
+      box-shadow: inset 0 0 18px color-mix(in srgb, var(--accent) 12%, transparent);
+    }
+    .ipo-flow-chip:not(.active) { opacity: .68; }
+    .ipo-node-mark {
+      width: 26px; height: 26px; border-radius: 50%; display: inline-grid; place-items: center;
+      margin-right: 6px; color: #071426; background: var(--accent); font-size: 1rem; font-weight: 900;
+      box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 50%, transparent);
+    }
+    .ipo-flow-chip strong { display: flex; align-items: center; color: var(--w); font-size: .72rem; line-height: 1.1; font-weight: 900; white-space: nowrap; }
+    .ipo-flow-chip span { display: block; margin-top: 5px; color: rgba(255,255,255,.82); font-size: .62rem; line-height: 1.22; font-weight: 850; }
+    .ipo-flow-chip small { display: block; margin-top: 4px; color: rgba(255,255,255,.5); font-size: .52rem; line-height: 1.2; font-weight: 800; }
+    .ipo-map-arrow {
+      display: grid; place-items: center; color: rgba(92,197,192,.8); font-size: 1.1rem; font-weight: 900;
+      text-shadow: 0 0 10px rgba(92,197,192,.6);
+    }
+    .ipo-map-arrow::before { content: '›'; }
+    .ipo-accordion { min-height: 0; flex: 1; display: grid; grid-template-rows: auto auto auto; gap: 7px; }
     .ipo-fold {
       min-height: 0; border-radius: 14px; border: 1px solid rgba(255,255,255,.11); background: rgba(255,255,255,.045);
       overflow: hidden; transition: background .22s ease, border-color .22s ease, box-shadow .22s ease;
@@ -560,13 +589,48 @@
     .ipo-fold-head span { display: block; margin-top: 3px; color: rgba(255,255,255,.55); font-size: .64rem; line-height: 1.2; font-weight: 800; }
     .fold-arrow { color: rgba(255,255,255,.5); transform: rotate(0deg); transition: transform .2s ease; }
     .ipo-fold.open .fold-arrow { transform: rotate(90deg); color: var(--accent); }
-    .ipo-fold-body { display: none; padding: 0 13px 13px 64px; }
+    .ipo-fold-body { display: none; padding: 0 12px 12px; }
     .ipo-fold.open .ipo-fold-body { display: block; animation: fi .22s ease forwards; }
-    .ipo-fold-body ul { display: flex; flex-direction: column; gap: 7px; margin: 0; padding: 0; }
+    .ipo-fold-body ul { display: flex; flex-direction: column; gap: 7px; margin: 0; padding: 0 0 0 16px; }
     .ipo-fold-body li {
       list-style: none; position: relative; color: rgba(255,255,255,.86); font-size: .82rem; line-height: 1.36; font-weight: 750;
     }
     .ipo-fold-body li::before { content: ''; position: absolute; left: -14px; top: .62em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+    .ipo-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 9px; }
+    .ipo-tag {
+      border-radius: 999px; padding: 5px 8px; border: 1px solid color-mix(in srgb, var(--accent) 38%, rgba(255,255,255,.12));
+      background: color-mix(in srgb, var(--accent) 10%, rgba(255,255,255,.045)); color: rgba(255,255,255,.9);
+      font-size: .64rem; line-height: 1.1; font-weight: 900; white-space: nowrap;
+    }
+    .problem-chain {
+      display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin-bottom: 9px;
+    }
+    .chain-card {
+      position: relative; min-height: 72px; border-radius: 10px; padding: 7px 5px 6px;
+      border: 1px solid rgba(92,197,192,.28); background: rgba(92,197,192,.08); text-align: center;
+      box-shadow: inset 0 0 12px rgba(92,197,192,.04);
+    }
+    .chain-card:not(:last-child)::after {
+      content: '›'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%);
+      color: rgba(92,197,192,.85); font-size: 1.05rem; font-weight: 900; z-index: 2;
+    }
+    .chain-card.value { border-color: rgba(240,200,110,.44); background: rgba(240,200,110,.1); }
+    .chain-card b { display: block; color: var(--w); font-size: .6rem; line-height: 1.15; font-weight: 900; }
+    .chain-card span { display: block; margin-top: 5px; color: rgba(255,255,255,.64); font-size: .5rem; line-height: 1.2; font-weight: 800; }
+    .chain-card em {
+      display: block; margin-top: 5px; color: var(--gold-l); font-style: normal; font-size: .48rem; line-height: 1.15; font-weight: 900;
+    }
+    .ipo-note {
+      border-radius: 11px; padding: 8px 10px; border: 1px solid color-mix(in srgb, var(--accent) 34%, rgba(255,255,255,.1));
+      background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 12%, transparent), rgba(255,255,255,.035));
+      color: rgba(255,255,255,.88); font-size: .68rem; line-height: 1.32; font-weight: 850;
+    }
+    .dimension-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 9px; }
+    .dimension-card {
+      border-radius: 11px; padding: 8px 9px; border: 1px solid rgba(255,255,255,.11); background: rgba(255,255,255,.045);
+    }
+    .dimension-card b { display: block; color: var(--accent); font-size: .68rem; line-height: 1.1; font-weight: 900; }
+    .dimension-card span { display: block; margin-top: 5px; color: rgba(255,255,255,.78); font-size: .58rem; line-height: 1.28; font-weight: 800; }
 
     /* ==================================================== */
     /* SLIDE 4: 整体反思 */
@@ -1189,6 +1253,26 @@
                   <strong class="analysis-score">综合题 30分</strong>
                 </section>
 
+                <div class="ipo-map" aria-label="第16题IPO命题思路总览">
+                  <button type="button" class="ipo-flow-chip active" data-ipo-target="i" onclick="openIpoFold('i')" style="--accent: var(--teal-l);">
+                    <strong><span class="ipo-node-mark">I</span>Input 输入</strong>
+                    <span>真实情境封装输入</span>
+                    <small>生态保护 · 水质预警 · 人员靠近预警</small>
+                  </button>
+                  <div class="ipo-map-arrow" aria-hidden="true"></div>
+                  <button type="button" class="ipo-flow-chip" data-ipo-target="p" onclick="openIpoFold('p')" style="--accent: var(--gold-l);">
+                    <strong><span class="ipo-node-mark">P</span>Process 处理</strong>
+                    <span>问题关联结构处理</span>
+                    <small>五问递进 · 条件整合 · 价值升华</small>
+                  </button>
+                  <div class="ipo-map-arrow" aria-hidden="true"></div>
+                  <button type="button" class="ipo-flow-chip" data-ipo-target="o" onclick="openIpoFold('o')" style="--accent: var(--b300);">
+                    <strong><span class="ipo-node-mark">O</span>Output 输出</strong>
+                    <span>高阶思维评估输出</span>
+                    <small>细目表 · 数据画像 · SOLO评分</small>
+                  </button>
+                </div>
+
                 <div class="ipo-accordion" aria-label="第16题IPO流程说明">
                   <article class="ipo-fold open" data-ipo="i" style="--accent: var(--teal-l);">
                     <button type="button" class="ipo-fold-head" onclick="toggleIpoFold(this)">
@@ -1197,8 +1281,13 @@
                       <span class="fold-arrow">›</span>
                     </button>
                     <div class="ipo-fold-body">
+                      <div class="ipo-tags" style="--accent: var(--teal-l);">
+                        <span class="ipo-tag">大沙河生态保护</span>
+                        <span class="ipo-tag">水质监测预警</span>
+                        <span class="ipo-tag">人员非法靠近预警</span>
+                      </div>
                       <ul>
-                        <li>以“大沙河生态监测”为本土真实情境，输入水质、红外、通信与安全等情境数据。</li>
+                        <li>以“大沙河生态保护”为本土真实情境，输入水质、红外、通信与安全等情境数据。</li>
                         <li>对应课标模块：物联网实践与探索，嵌入人工智能与智慧社会中的自主可控议题。</li>
                         <li>把学业质量要求转化为可观察任务：流程识别、阈值判断、协议代码、攻击防护、价值论证。</li>
                       </ul>
@@ -1212,10 +1301,36 @@
                       <span class="fold-arrow">›</span>
                     </button>
                     <div class="ipo-fold-body">
+                      <div class="problem-chain">
+                        <div class="chain-card">
+                          <b>第(1)问<br>算法设计</b>
+                          <span>模块识别与功能匹配</span>
+                          <em>单点/多点应用</em>
+                        </div>
+                        <div class="chain-card">
+                          <b>第(2)问<br>数据推演</b>
+                          <span>阈值判断与规则应用</span>
+                          <em>多点关联/条件整合</em>
+                        </div>
+                        <div class="chain-card">
+                          <b>第(3)问<br>代码补全</b>
+                          <span>MQTT发布/订阅实现</span>
+                          <em>知识整合/编码应用</em>
+                        </div>
+                        <div class="chain-card">
+                          <b>第(4)问<br>DDoS防范</b>
+                          <span>安全威胁识别与决策</span>
+                          <em>网络安全综合应用</em>
+                        </div>
+                        <div class="chain-card value">
+                          <b>第(5)问<br>自主可控</b>
+                          <span>技术依赖风险分析</span>
+                          <em>拓展抽象/价值升华</em>
+                        </div>
+                      </div>
                       <ul>
-                        <li>子问题链：系统流程模块匹配 → 传感器数据推演 → MQTT代码补全 → DDoS识别 → 自主可控论述。</li>
-                        <li>从单点知识识别推进到多源数据关联，引导学生解释“采集、传输、分析、反馈”的系统关系。</li>
-                        <li>通过代码补全和安全情境判断，呈现计算思维、系统思维与责任意识的高阶表现。</li>
+                        <li>五个子问前后依赖、层层递进，形成整题关联结构。</li>
+                        <li>从模块匹配、数据推演推进到协议实现、安全决策与价值论证。</li>
                       </ul>
                     </div>
                   </article>
@@ -1227,11 +1342,24 @@
                       <span class="fold-arrow">›</span>
                     </button>
                     <div class="ipo-fold-body">
-                      <ul>
-                        <li>输出可评价证据：流程图答案、阈值推演表、MQTT方法填空、安全策略选择与开放性论述。</li>
-                        <li>覆盖计算思维、数字化学习与创新、信息社会责任，突出真实问题解决而非记忆再现。</li>
-                        <li>评分关注从“会判断”到“能解释、能迁移、能论证”的思维层级变化。</li>
-                      </ul>
+                      <div class="ipo-tags" style="--accent: var(--b300);">
+                        <span class="ipo-tag">多维双向细目表</span>
+                        <span class="ipo-tag">全卷数据画像</span>
+                        <span class="ipo-tag">SOLO质性评分</span>
+                      </div>
+                      <div class="dimension-grid" style="--accent: var(--b300);">
+                        <div class="dimension-card">
+                          <b>考查知识</b>
+                          <span>物联网分层、传感器、数据处理、MQTT协议、网络安全技术、自主可控</span>
+                        </div>
+                        <div class="dimension-card">
+                          <b>能力维度</b>
+                          <span>流程设计、数据推理、编程实现、问题分析、决策选择、价值判断</span>
+                        </div>
+                      </div>
+                      <div class="ipo-note" style="--accent: var(--gold-l);">
+                        第(5)问从技术问题上升到国家安全与社会责任：看清技术依赖风险，树立自主可控意识。
+                      </div>
                     </div>
                   </article>
                 </div>
@@ -1574,9 +1702,13 @@
 
     function toggleIpoFold(btn) {
       const fold = btn.closest('.ipo-fold');
-      const wrap = btn.closest('.ipo-accordion');
-      if (!fold || !wrap) return;
-      wrap.querySelectorAll('.ipo-fold').forEach(item => item.classList.toggle('open', item === fold));
+      if (!fold) return;
+      openIpoFold(fold.dataset.ipo);
+    }
+
+    function openIpoFold(key) {
+      document.querySelectorAll('#slide3 .ipo-fold').forEach(item => item.classList.toggle('open', item.dataset.ipo === key));
+      document.querySelectorAll('#slide3 .ipo-flow-chip').forEach(item => item.classList.toggle('active', item.dataset.ipoTarget === key));
     }
 
     // --- Modals Logic ---
