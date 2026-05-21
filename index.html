@@ -456,6 +456,29 @@
       color: #fff; font-size: clamp(1.35rem, 2.2vw, 2.38rem); font-weight: 900; letter-spacing: .13em;
     }
     .bottom-bar b { color: #ffd15f; font-weight: 900; }
+
+    /* Slide 2 now uses the provided image as the exact visual layer. */
+    #slide2 .ipo-system {
+      background: #061433 url('images/ipo-background.png') center / 100% 100% no-repeat;
+    }
+    #slide2 .ipo-system::before,
+    #slide2 .ipo-system::after { display: none; }
+    #slide2 .ipo-system > :not(#ipoOutputNode) { display: none !important; }
+    #slide2 #ipoOutputNode {
+      position: absolute; right: 4.7%; top: 33.8%; width: 25.6%; height: 43.8%;
+      display: block; padding: 0; border: 0; border-radius: 50%; background: transparent;
+      box-shadow: none; color: transparent; cursor: pointer; z-index: 8; overflow: visible;
+      transition: background .18s ease, box-shadow .18s ease;
+    }
+    #slide2 #ipoOutputNode > * { display: none; }
+    #slide2 #ipoOutputNode:hover,
+    #slide2 #ipoOutputNode:focus-visible {
+      transform: none; filter: none; outline: none;
+      background: rgba(255, 205, 84, .05);
+      box-shadow: 0 0 0 2px rgba(255, 214, 118, .22), 0 0 28px rgba(255, 181, 54, .18);
+    }
+    body:has(#slide2.active) .nav-controls { opacity: .28; }
+    body:has(#slide2.active) .nav-controls:hover { opacity: .9; }
     /* ==================================================== */
     /* SLIDE 3: 试题展示 */
     /* ==================================================== */
@@ -1368,18 +1391,18 @@
                 </div>
                 <div class="kpi-card" style="--kpi: var(--b300);">
                   <div class="kpi-icon" style="background: rgba(59,108,181,0.14);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--b300)" stroke-width="2"><path d="M4 19h16"/><path d="M6 16h3v3H6zM11 12h3v7h-3zM16 7h3v12h-3z"/></svg></div>
-                  <div class="kpi-info"><h4>平均难度系数</h4><span style="color:var(--b200)">0.70</span></div>
+                  <div class="kpi-info"><h4>平均难度系数</h4><span style="color:var(--b200)">0.76</span></div>
                 </div>
               </div>
               <section class="dash-overview">
                 <div>
                   <span class="overview-kicker">Output Portrait</span>
-                  <h2 class="overview-title">均值 0.70</h2>
+                  <h2 class="overview-title">均值 0.76</h2>
                 </div>
                 <div class="overview-metrics">
                   <span>素养 <b>4维</b></span>
                   <span>模块 <b>45/45/10</b></span>
-                  <span>难度系数 <b>≈0.70</b></span>
+                  <span>难度系数 <b>≈0.76</b></span>
                 </div>
               </section>
             </section>
@@ -1518,12 +1541,12 @@
     const DASHBOARD_SUMMARY = {
       kicker: 'Overall Profile',
       title: '整卷画像摘要',
-      value: '难度系数均值 ≈0.70',
+      value: '难度系数均值 ≈0.76',
       questions: Array.from({ length: 16 }, (_, i) => i + 1),
       points: [
         { label: '覆盖', title: '四维核心素养全部进入命题证据链', knowledge: '计算思维覆盖12题，信息意识覆盖8题，数字化学习与创新覆盖6题，信息社会责任覆盖7题。' },
         { label: '均衡', title: '互联网应用与物联网实践形成双主体', knowledge: '两大模块各45分，人工智能与智慧社会10分嵌入关键议题。' },
-        { label: '难度', title: '全卷预估得分率约0.70', knowledge: '多维细目表汇总显示全卷预估得分率≈0.70，可作为整卷难度系数平均值呈现。' }
+        { label: '难度', title: '整卷难度系数约0.76', knowledge: '按整卷展示口径呈现难度系数均值≈0.76。' }
       ]
     };
 
